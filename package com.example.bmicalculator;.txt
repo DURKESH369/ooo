@@ -1,0 +1,139 @@
+package com.example.bmicalculator;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    // Creating variables
+    EditText height, weight;
+    Button btn;
+    TextView result;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Connecting Java with XML file
+        setContentView(R.layout.activity_main);
+
+        // Connecting XML IDs with Java
+        height = findViewById(R.id.height);
+        weight = findViewById(R.id.weight);
+        btn = findViewById(R.id.btn);
+        result = findViewById(R.id.result);
+
+        // Button click event
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Getting height from user
+                double h = Double.parseDouble(
+                        height.getText().toString());
+
+                // Getting weight from user
+                double w = Double.parseDouble(
+                        weight.getText().toString());
+
+                // BMI Formula
+                double bmi = w / (h * h);
+
+                // Variable for status
+                String status;
+
+                // Checking BMI category
+                if (bmi < 18.5) {
+                    status = "Underweight";
+                }
+
+                else if (bmi >= 18.5 && bmi < 25) {
+                    status = "Normal Weight";
+                }
+
+                else if (bmi >= 25 && bmi < 30) {
+                    status = "Overweight";
+                }
+
+                else {
+                    status = "Obesity";
+                }
+
+                // Showing final result
+                result.setText(
+                        "BMI = " + bmi +
+                        "\nStatus = " + status
+                );
+            }
+        });
+    }
+}
+
+XML Code (activity_main.xml)
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- Title -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to BMI Calculator"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:padding="20dp"/>
+
+    <!-- Height Input -->
+
+    <EditText
+        android:id="@+id/height"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Height in meters"
+        android:inputType="numberDecimal"/>
+
+    <!-- Weight Input -->
+
+    <EditText
+        android:id="@+id/weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Weight in kg"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="10dp"/>
+
+    <!-- Button -->
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calculate BMI"
+        android:backgroundTint="#FF69B4"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Result -->
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Result"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>
