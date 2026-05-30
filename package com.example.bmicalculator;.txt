@@ -1,139 +1,162 @@
-package com.example.bmicalculator;
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital Patient Record System</title>
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            margin:0;
+            padding:20px;
+        }
 
-import androidx.appcompat.app.AppCompatActivity;
+        h1{
+            background:#003366;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
 
-public class MainActivity extends AppCompatActivity {
+        .container{
+            display:flex;
+            gap:20px;
+        }
 
-    // Creating variables
-    EditText height, weight;
-    Button btn;
-    TextView result;
+        .box{
+            width:50%;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0px 0px 10px gray;
+        }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        .box h2{
+            color:#003366;
+        }
 
-        // Connecting Java with XML file
-        setContentView(R.layout.activity_main);
+        input{
+            width:95%;
+            padding:10px;
+            margin:8px 0;
+        }
 
-        // Connecting XML IDs with Java
-        height = findViewById(R.id.height);
-        weight = findViewById(R.id.weight);
-        btn = findViewById(R.id.btn);
-        result = findViewById(R.id.result);
+        button{
+            padding:10px 20px;
+            border:none;
+            color:white;
+            cursor:pointer;
+        }
 
-        // Button click event
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        .save{
+            background:green;
+        }
 
-                // Getting height from user
-                double h = Double.parseDouble(
-                        height.getText().toString());
+        .search{
+            background:blue;
+        }
 
-                // Getting weight from user
-                double w = Double.parseDouble(
-                        weight.getText().toString());
+        #output{
+            margin-top:20px;
+            background:#f9f9f9;
+            padding:15px;
+            border-radius:10px;
+        }
+    </style>
+</head>
 
-                // BMI Formula
-                double bmi = w / (h * h);
+<body>
 
-                // Variable for status
-                String status;
+<h1>Hospital Patient Record System</h1>
 
-                // Checking BMI category
-                if (bmi < 18.5) {
-                    status = "Underweight";
-                }
+<div class="container">
 
-                else if (bmi >= 18.5 && bmi < 25) {
-                    status = "Normal Weight";
-                }
+    <div class="box">
+        <h2>Add Patient</h2>
 
-                else if (bmi >= 25 && bmi < 30) {
-                    status = "Overweight";
-                }
+        <input type="number" id="id" placeholder="Patient ID">
 
-                else {
-                    status = "Obesity";
-                }
+        <input type="text" id="name" placeholder="Patient Name">
 
-                // Showing final result
-                result.setText(
-                        "BMI = " + bmi +
-                        "\nStatus = " + status
-                );
-            }
-        });
-    }
+        <input type="number" id="age" placeholder="Age">
+
+        <input type="text" id="disease" placeholder="Disease">
+
+        <br><br>
+
+        <button class="save" onclick="savePatient()">
+            Save Patient
+        </button>
+    </div>
+
+    <div class="box">
+        <h2>Search Patient</h2>
+
+        <input type="number" id="searchId" placeholder="Enter Patient ID">
+
+        <button class="search" onclick="searchPatient()">
+            Search
+        </button>
+
+        <div id="output"></div>
+    </div>
+
+</div>
+
+<script src="pat.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+let patients: any[] = [];
+
+function savePatient() {
+
+    let patient = {
+        id: (document.getElementById("id") as HTMLInputElement).value,
+        name: (document.getElementById("name") as HTMLInputElement).value,
+        age: (document.getElementById("age") as HTMLInputElement).value,
+        disease: (document.getElementById("disease") as HTMLInputElement).value
+    };
+
+    patients.push(patient);
+
+    alert("Patient Saved Successfully");
 }
 
-XML Code (activity_main.xml)
+function searchPatient() {
 
-<?xml version="1.0" encoding="utf-8"?>
+    let searchId =
+        (document.getElementById("searchId") as HTMLInputElement).value;
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp">
+    let patient = patients.find(p => p.id === searchId);
 
-    <!-- Title -->
+    if (patient) {
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to BMI Calculator"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:padding="20dp"/>
+        document.getElementById("output")!.innerHTML =
+        `
+        <h3>Patient Details</h3>
+        <p>ID: ${patient.id}</p>
+        <p>Name: ${patient.name}</p>
+        <p>Age: ${patient.age}</p>
+        <p>Disease: ${patient.disease}</p>
+        `;
+    }
+    else {
 
-    <!-- Height Input -->
-
-    <EditText
-        android:id="@+id/height"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Height in meters"
-        android:inputType="numberDecimal"/>
-
-    <!-- Weight Input -->
-
-    <EditText
-        android:id="@+id/weight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Weight in kg"
-        android:inputType="numberDecimal"
-        android:layout_marginTop="10dp"/>
-
-    <!-- Button -->
-
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Calculate BMI"
-        android:backgroundTint="#FF69B4"
-        android:layout_marginTop="20dp"/>
-
-    <!-- Result -->
-
-    <TextView
-        android:id="@+id/result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Result"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"/>
-
-</LinearLayout>
+        document.getElementById("output")!.innerHTML =
+        "<h3>Patient Not Found</h3>";
+    }
+}
