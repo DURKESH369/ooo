@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Menu & Festival Offers</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Internal CSS -->
+    <style>
+        .offer {
+            background-color: orange;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        .special {
+            color: darkred;
+            font-size: 22px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Welcome to Royal Restaurant</h1>
+    </header>
+
+    <div class="container">
+
+        <h2>Our Menu</h2>
+
+        <div class="card">
+            <h3>Chicken Biryani</h3>
+            <p>Price: ₹250</p>
+        </div>
+
+        <div class="card">
+            <h3>Paneer Butter Masala</h3>
+            <p>Price: ₹180</p>
+        </div>
+
+        <div class="card">
+            <h3>Veg Fried Rice</h3>
+            <p>Price: ₹150</p>
+        </div>
+
+        <div class="offer">
+            <h2 class="special">Festival Special Offer</h2>
+            <p>Get 20% Discount on all food items!</p>
+            <p>Free Dessert for orders above ₹500.</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Royal Restaurant</p>
+    </footer>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+header {
+    background-color: #8B0000;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px gray;
+}
+
+footer {
+    background-color: #8B0000;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
